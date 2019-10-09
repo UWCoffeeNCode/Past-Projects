@@ -1,0 +1,101 @@
+<script type="text/javascript">
+
+    function reload() {
+    
+        // Declare new html objects
+        var html = '<object id="graph" data="graph.html" width = 100%></object> ';
+        var element = document.getElementById("graph");
+        var newElement = document.createElement("div");
+        var parent = document.getElementById("graphParent");
+
+        // Replace old object with new object containing the updated graph
+        element.parentNode.removeChild(element);
+        newElement.setAttribute('id', "graph");
+        newElement.innerHTML = html;
+        parent.appendChild(newElement);
+
+    }
+    
+</script>
+
+<style>
+    .hide { width:1px; height:1px; }
+</style>
+
+<html>
+        <link rel="stylesheet" type="text/css" href="semantic.min.css">
+        <script
+          src="https://code.jquery.com/jquery-3.1.1.min.js"
+          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+          crossorigin="anonymous"></script>
+        <script src="semantic.min.js"></script>
+
+<body>
+    <br><br><br><br>
+    <div class="ui two column centered grid">
+        <div class="column">
+                <img src="red_cross.png" style = "width:100px;display:block;margin-left: auto;margin-right: auto;" ></img>
+                <h1 style="text-align:center">Heart Disease Classifier</h1>
+                <p style="text-align:center">Coffee 'N Code Data Science Finale</p>
+                
+            
+            
+            
+            <iframe name="hiddenFrame" class="hide"></iframe>
+            <br >
+            <h3>Find your chance of heart disease!</h3>
+            Please fill in the form, unknown fields are optional and will be set to default values
+            <div class = "ui segment" > 
+
+            <form class="ui form" method="get" action="http://127.0.0.1:5000/forest" target="hiddenFrame">
+                <h2>Your Information</h2>
+
+                <label>Age</label> <input type="text" name="age"><br><br>
+                <label>Gender</label><br>
+                <input type="radio" name="sex" value="0"> Male<br>
+                <input type="radio" name="sex" value="1"> Female<br><br>
+
+                <label>Chest Pain </label><br>
+                <input type="radio" name="chest_pain" value="0"> Angina Pain<br>
+                <input type="radio" name="chest_pain" value="1"> Non-Angina Pain<br>
+                <input type="radio" name="chest_pain" value="2"> No Pain<br>  <br>
+
+                <label>Blood Pressure (in mmHg, usually from 80-160) </label><input type="text" name="blood_pressure"><br><br>
+
+                <label>Heart Rate</label> <input type="text" name="heart_rate"><br><br>
+                <label>Thalassemia Presence</label> <br>
+                <input type="radio" name="thalassemia" value="1"> Normal<br>
+                <input type="radio" name="thalassemia" value="2"> Fixed Defect<br>
+                <input type="radio" name="thalassemia" value="3"> Reversable Defect<br> <br>
+
+                <label> Major Vessels </label><input type="text" name="major_vessels"><br><br>
+
+                <label><h2>Existing Dataset</h2></label> <br>
+                <input type="radio" name="override" value="0"> Patient with Heart Disease<br>
+                <input type="radio" name="override" value="1"> Healthy Patient<br>
+                <input type="radio" name="override" checked value="None">No override<br><br>
+                
+                <button onClick=reload() class="ui button" name="foo" value="upvote">Classify Risk</button>
+
+            </form>
+         </div>
+        </div>
+    </div>
+
+    <div id="graphParent">
+        <br><br>
+        <object id="graph" data="graph.html" width = 100% height = 180px> 
+            Your browser is outdated :P
+        </object>
+    </div>
+    <br>
+    <br>
+
+            <img src="heartrate.png" style = "width:200px;display:block;margin-left: auto;margin-right: auto;" ></img>
+            <h2 style="text-align:center">Coffee 'N Code</h2>
+            <p style="text-align:center">Data Science Summer '19</p>
+
+    <br><br>
+    </body>
+</body>
+</html>

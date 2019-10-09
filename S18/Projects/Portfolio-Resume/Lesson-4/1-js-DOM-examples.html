@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JavaScript DOM</title>
+		<style>
+			img {
+				max-width: 100%;
+				max-height: 400px;
+			}
+			#box {
+				background-color: tomato;
+				width: 100px;
+				padding: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Hello World!</h1>
+		<p id="name" class="example">Michael</p>
+		<button onclick="michaelfy()">michael button</button>
+		<button onclick="ahrarify()">ahrar button</button>
+		<br>
+
+		<img class="doggo" src="https://assets.bondivet.com/attachments/e91128f7aced29fcaf32307c52322c7a98211f08/store/78456425bc550e45ec1a44b57093cdb7759d2b2fa5b34505a6f57259d8f2/image.jpeg">
+		<br>
+		<button onclick="pug()">puggerino</button>
+		<button onclick="sausage()">sausage doggo</button>
+
+		<p id="css-example">I change colour!</p>
+		<button onclick="green()">green</button>
+		<button onclick="blue()">blue</button>
+
+		<h2 onclick="this.innerHTML='got clicked!'">click on me!</h2>
+
+		<div id="box" onmouseover="mOver(this)" onmouseout="mOut(this)">
+			mouse over me
+		</div>
+
+		<h2 id="alert">click me to read an alert!</h2>
+		
+		<div id="education">
+			<h1>Education:</h1>
+			<p id="removepls">this should be removed</p>
+			<p id="replacepls">this should be replaced</p>
+		</div>
+		
+		<h2>button count:</h2>
+		<p id="btncount"></p>
+
+		<!-- script>
+			// 1. HTML DOM is a standard of adding, removing, and changing HTML elements; we can achieve this with JavaScript to make dynamic HTML
+			// 2. properties are values that developers can get or set (eg. innerHTML)
+			// 3. methods are actions that developers can do (eg. getElementById)
+			document.getElementById("name").innerHTML = "Ahrar";
+			// innerHTML is one of the easiest ways to access the content of an element
+			// getElementById is one of the most common ways to access a desired element
+			// 4. the HTML DOM document object represents your web page, so if you want to access any element in an HTML page, you always have to start with accessing the document object
+			// 5. there are multiple ways to find HTML elements
+			// 5a. by id
+			document.getElementById("name");
+			// 5b. by tag name
+			document.getElementByTagName("p");
+			// 5c. by class name
+			document.getElementsByClassName("example");
+		</script-->
+		<script>
+			// 6. you can make functions run on botton clicks
+			// 7. changing HTML content
+			function michaelfy () {
+				document.getElementById("name").innerHTML = "Michael";
+			}
+			function ahrarify () {
+				document.getElementById("name").innerHTML = "Ahrar";
+			}
+			// 8. changing HTML attriutes
+			function pug () {
+				document.getElementsByClassName("doggo")[0].src = "https://assets.bondivet.com/attachments/e91128f7aced29fcaf32307c52322c7a98211f08/store/78456425bc550e45ec1a44b57093cdb7759d2b2fa5b34505a6f57259d8f2/image.jpeg";
+			}
+			function sausage () {
+				document.getElementsByClassName("doggo")[0].src = "https://media1.popsugar-assets.com/files/thumbor/BaPrFVfvO6d9ZmSqHIp3PeOLk84/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2016/04/12/303/n/36731630/5ea04772_edit_img_image_40897874_1460434311/i/Cutest-Sausage-Dogs-Instagram.jpg";
+			}
+			// 9. changing CSS properties and values
+			function green() {
+				var element = document.getElementById("css-example");
+				element.style.color = "green";
+				element.style.fontFamily = "georgia";
+				element.style.fontSize = "25px";
+			}
+			function blue() {
+				var element = document.getElementById("css-example");
+				element.style.color = "blue";
+				element.style.fontFamily = "verdana";
+				element.style.fontSize = "20px";
+			}
+			// 10. mouse events
+			function mOver(element) {
+				element.innerHTML = "hovering!!!";
+			}
+			function mOut(element) {
+				element.innerHTML = "mouse over me";
+			}
+			// 11. adding event listeners
+			document.getElementById("alert").addEventListener("click", function(){
+					alert("Alert Message");
+			});
+			// 12. DOM nodes and navigation
+			// possibly the most "extra" way of adding a paragraph in HTML ._.
+			var element = document.getElementById("education");
+			var paragraph = document.createElement("p");
+			var text = document.createTextNode("Waterloo");
+			paragraph.appendChild(text);
+			element.appendChild(paragraph);
+			
+			// https://www.w3schools.com/js/js_htmldom_navigation.asp
+			
+			// removing elements
+			var toRemove = document.getElementById("removepls");
+			element.removeChild(toRemove);
+			// 13. DOM collection vs node lists (there are subtle differences)
+			// HTML collections are similar to arrays, but are not actually arrays, thus cannot use array methods on HTMl collections
+			var collection = document.getElementsByTagName("button");
+			document.getElementById("btncount").innerHTML = collection.length;
+			
+		</script>
+	</body>
+</html>

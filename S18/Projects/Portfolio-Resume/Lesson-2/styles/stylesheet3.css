@@ -1,0 +1,17 @@
+h1, h2, h3 {
+		color: white;
+		background-color: green;
+}
+
+.province {
+		color: purple;
+}
+
+.city {
+		color: blue;
+		background-color: grey;
+}
+
+#home {
+		color: orange;
+}

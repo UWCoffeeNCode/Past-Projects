@@ -1,0 +1,16 @@
+<html>
+  <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/main.css') }}">
+    <style>
+      #gameCanvas {cursor: none;}
+    </style>
+  </head>
+  <body>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+      setResUrl("{{ url_for('static', filename='') }}");
+      loadResources();
+    </script>
+    <canvas id="gameCanvas"> </canvas>
+  </body>
+</html>

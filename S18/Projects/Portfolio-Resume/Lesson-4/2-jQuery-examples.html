@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery</title>
+		<!-- jQuery - Google CDN -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<h1>Hello World!</h1>
+		<h2 id="name">Michael</h2>
+		
+		<p id="coffee">Coffee 'n Code</p>
+		<button id="hide">Hide</button>
+		<button id="show">Show</button>
+		<br><br>
+		
+		<button id="in">click to fade in</button>
+		<button id="out">click to fade out</button>	
+
+		<!-- credit: w3schools -->
+		<div id="redbox" style="width:80px;height:80px;display:none;background-color:red;"></div><br>
+		<div id="greenbox" style="width:80px;height:80px;display:none;background-color:green;"></div><br>
+		<div id="bluebox" style="width:80px;height:80px;display:none;background-color:blue;"></div><br>
+
+		<button id="animate">click to animate</button>
+		<div id="orangebox" style="width:80px;height:80px;background-color:orange;"></div><br>
+
+		<button id="schoolbutton">click to move school</button>
+		<p id="school">university of waterloo</p>
+		
+	</head>
+	<body>
+		<script>
+			// 1. jQuery is a JavaScript library that simplifies a lot of common JavaScript tasks involving HTML/DOM/CSS manipulation, event methods, effects and animations, AJAX calls, etc. and also works in all browsers
+			// 2. jQuery syntax is specifically made for selecting elements and then performing actions on those elements
+			// $(selector).action()
+			$("h1"); // element selector: selects all h1 elements
+			$("#name"); // id selector: selects element with name id
+			
+			// 3. events: an event represents the precise moment when something happens (Eg. moving a mouse over an element, selecting a button, clicking on an element)
+			// we say that an event is "fired" the moment the user gives input for the event to occur
+
+			// 4. effects
+			// hide/show
+			$("#hide").click(function(){
+							$("#coffee").hide();
+							});
+			$("#show").click(function() {
+							$("#coffee").show();
+							});
+			// fade
+			$("#in").click(function(){
+									$("#redbox").fadeIn();
+									$("#greenbox").fadeIn("slow");
+									$("#bluebox").fadeIn(3000);
+									});
+			$("#out").click(function(){
+									$("#redbox").fadeOut();
+									$("#bluebox").fadeOut(3000);
+									$("#greenbox").fadeOut("slow");
+									});
+			// slide
+			$("#greenbox").click(function(){ // flip
+									$("#bluebox").slideToggle("slow"); // panel
+								});
+			// animate
+			$("#animate").click(function(){
+									$("#orangebox").animate({
+										left: '1000px',
+										opacity: '0.5',
+										height: '150px',
+										width: '150px'
+									});
+								});
+			// chaining methods
+			$("#schoolbutton").click(function(){
+										$("#school").css("color", "purple").slideUp(2000).slideDown(2000);
+									});
+			// 5. jQuery HTML/CSS DOM manipulation
+			// 6. jQuery DOM traversing
+		</script>
+	</body>
+</html>

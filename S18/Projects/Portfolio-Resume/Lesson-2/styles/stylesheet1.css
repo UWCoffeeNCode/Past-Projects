@@ -1,0 +1,22 @@
+h1 {
+	color: red;
+	background-color: green;
+	border: 1px solid blue;
+	font-size: 16px;
+
+}
+
+p {
+	color:  white;
+	background-color: pink;
+}
+
+#box {
+		width: 300px;
+		border: 25px solid green;
+		padding: 25px;
+		margin: 25px;
+		color: blue;
+		font-family: "Georgia";
+		font-style: "italic";
+}
