@@ -73,6 +73,7 @@ Lesson 3:
 """
 from datetime import datetime
 
+
 class InvalidTimeException(Exception):
     pass
 
@@ -100,12 +101,51 @@ def set_thermostat(temperature: int, time: datetime = datetime.now()):
     except InvalidTimeException:
         # _change_time(datetime.now())        
 
+
 """
 Lesson 4:
     Sets
     Dictionaries
     Array
 """
+from typing import List, Dict, Set
+from collections import defaultdict
+from array import array
+
+
+def check_enrollment(student_ids: Set[int], target_id: int) -> bool:
+    return target_id in student_ids
+
+def get_name_frequency_map_v1(names: List[str]) -> Dict[str, int]:
+    name_frequency_map = {}
+    for name in names:
+        if name in name_frequency_map:
+            name_frequency_map[name] += 1
+        else:
+            name_frequency_map[name] = 1
+    return name_frequency_map
+
+def get_name_frequency_map_v1(names: List[str]) -> Dict[str, int]:
+    name_frequency_map = defaultdict(int)
+    for name in names:
+        name_frequency_map[name] += 1
+    return name_frequency_map
+
+def get_complementary_dna_sequence(dna_seq: List[str]) -> List[str]:
+    complement = array('b')
+    for nucleotide in dna_seq:
+        if nucleotide == 'a':
+            complement.append(ord('t'))
+        elif nucleotide == 't':
+            complement.append(ord('a'))
+        elif nucleotide == 'c':
+            complement.append(ord('g'))
+        elif nucleotide == 'g':
+            complement.append(ord('c'))
+        else:
+            raise Exception("Invalid DNA sequence provided")
+    return complement
+
 
 """
 Lesson 5:
