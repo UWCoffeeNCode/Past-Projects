@@ -2,13 +2,6 @@
 
 ### <a href="https://docs.google.com/presentation/d/1tYh3grODsCx6f9ODBeMLiW4j4e4Pk4DUxE7omVHyWYY/edit?usp=sharing">Slides</a>
 
-## Intro
-
-Hello and welcome to Coffee N Code!
-<br>
-My name is Michael, and I'll be guiding you through our project <i>CanadaU</i>.
-<br>
-
 ## Objectives
 
 1. Set up development tools on your computer
@@ -21,24 +14,36 @@ My name is Michael, and I'll be guiding you through our project <i>CanadaU</i>.
 
 ### 1. Set Up
 
-1. Join the <a href="https://bit.ly/uwcoffeencodeslack">Coffee N Code Slack</a>, and join the `#canada-u` channel
-1. Install Bash terminal if needed:
-	1. <b>Windows users</b>: install <a href="https://git-scm.com/downloads">Git Bash</a> and use this when I say to use a terminal
-	1. <b>Mac users</b>: use the application <b>Terminal</b> when I say to use a terminal
-	- <b>Note</b>: a terminal is just a tool which lets you run commands on your computer. If this is your first time using it, don't worry.
-1. Install Python <a href="https://www.python.org/downloads/">here</a>
-1. Check Python and pip were installed properly by entering this command in your <b>terminal</b>:
+1. Join the [Coffee N Code Slack](https://bit.ly/uwcoffeencodeslack), then join the `#canada-u` channel for project updates.
+1. <b>Windows users</b>: install [Git Bash](https://git-scm.com/downloads) and use this when I say to use a terminal.
+1. Install [Python](https://www.python.org/downloads/).
+	- <b>Windows users</b>: during installation, <b>select the checkbox to add Python to your PATH!</b>
+1. Check Python was installed properly by entering this command in your terminal:
 	- <b>Windows</b>: `python -i`
 	- <b>Mac</b>: `python3`
-1. Install the Python Reddit API Wrapper (PRAW) and Flask:
-	- <b>Windows</b>: `python -m pip install praw` and `python -m pip install flask`
+	- <b>Troubleshooting for Windows users</b>: did you add Python to your PATH, as in step 3? If not, repeat that step.
+1. Install the Python Reddit API Wrapper (PRAW) and Flask by entering these commands in your terminal:
+	- <b>Windows</b>: `pip install praw` and `pip install flask`
 	- <b>Mac</b>: `pip3 install praw` and `pip3 install flask`
-1. Download <a href="https://code.visualstudio.com">VS Code</a> or <a href="https://www.sublimetext.com/3">Sublime</a> (for experienced developers who want something "lighter").
-	- This will be your <b>IDE</b> (integrated development environment)
-	- It's an application that helps you write code
-	- If you're waiting for things to install, customize the settings and make it look pretty!
+1. Download <a href="https://code.visualstudio.com">VS Code</a> if you don't already have an IDE.
+	- <b>Note</b>: an IDE (integrated development environment) is an application that helps you write code.
 
-### 2. Reddit API
+### 2. Front End vs Back End
+
+Front end and back end are the two parts which make up a web application.
+
+<b>Front End</b>
+- What the user sees and interacts with
+- Handles presentation of data
+- Fetches data from back end
+- Updates data in back end
+
+<b>Back End</b>
+- Gives data to front end
+- Processes data
+- May include a database
+
+### 3. Reddit API
 
 An Application Programming Interface (API) is <b>a contract between a client and a server</b>.
 <br>
@@ -81,11 +86,9 @@ and run it in your terminal.
 <br>
 Let me know if you run into any problems!
 
-### 3. Next Steps
+### 4. Next Steps
 
-Check out the PRAW documentation to see what you can do.
-
-I've put some examples in `praw_examples.py`.
+I've put a few examples in `praw_examples.py`, including links to the [PRAW documentation](https://praw.readthedocs.io/en/latest/index.html).
 
 Feel free to work in teams or by yourself, and please let me know if you run into any problems or if you do anything really cool.
 
