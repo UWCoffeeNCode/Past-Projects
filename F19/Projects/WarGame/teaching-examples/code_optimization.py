@@ -152,3 +152,41 @@ Lesson 5:
     'is' versus '=='
     Special Methods
 """
+
+class Poem:
+    def __init__(self, text, title=None, author=None):
+        self.text = text
+
+        self.title = title
+        if title is None:
+            self.title = "Untitled"
+        
+        self.author = author
+        if author is None:
+            self.author = "Anonymous"
+
+        self.__lines = self.__get_lines()
+    
+    def __repr__(self):
+        return self.title
+    
+    def __str__(self):
+        return self.text
+
+    def __get_lines(self):
+        """ Splits the poetic text into a list of lines
+        """
+        return [x for x in self.text.split('\n') if x.strip()]
+
+    def __getitem__(self, index):
+        """ Allows lines of the poem to be retrieved like a list
+        """
+        return self.__lines[index]
+
+if __name__ == '__main__':
+    path_not_taken = Poem(
+        "Two paths diverged in a yellow wood and ...\nInsert rest of poem",
+        "The path not take",
+        "Robert Frost"
+    )
+    # Do operations with the poem
