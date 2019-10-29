@@ -1,4 +1,6 @@
-from random import choice, randint
+from random import choice
+from typing import List
+
 
 from resources.weapons import Weapons
 
@@ -12,29 +14,30 @@ class Bot:
     """
 
     def __init__(self):
-        self.last_enemy = -1
-        self.last_weapon = -1
-
+        self.last_enemy = None
+        self.last_weapon = None
 
     def action(self, country_status: dict, world_state: dict):
         # Did anyone fire at it
         self.review_events(world_state["events"], country_status["ID"])
 
         # Fire at a target if there is one
-        if self.last_enemy >= 0 and self.last_weapon >= 0:
+        if self.last_enemy is not None and self.last_weapon is not None:
             action, target = self.last_weapon, self.last_enemy
+
+            return {
+                "Weapon": action,
+                "Target": target
+            }
+
         else:
-            action, target = 0, None
+            return {}
 
-        return {
-            "Action": action,
-            "Target": target
-        }
-
-    def review_events(self, events, self_id):
+    def review_events(self, events: List[dict], self_id: int):
         for event in events:
             # Search for only events that fire at this bot
-            if event["Action"] in range(1, 4) and event["Target"] == self_id:
+            if ("Weapon" in event
+                    and event["Weapon"] in Weapons and event["Target"] == self_id):
                 self.last_enemy = event["Source"]
-                self.last_weapon = event["Action"]
+                self.last_weapon = event["Weapon"]
                 break

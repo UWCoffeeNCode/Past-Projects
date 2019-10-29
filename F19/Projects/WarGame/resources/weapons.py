@@ -1,39 +1,32 @@
-from enum import Enum
+from enum import Enum, unique
 
-
-class Weapons(Enum):
-    WAIT = 0
-    LASER = 1
-    MISSILE = 2
-    NUKE = 3
-
-    @classmethod
-    def has(cls, value):
-        return value in cls._value2member_map_
-
-
-class Wait:
-    COST = 0
-    DAMAGE = 0
-    SPEED = 1
-    REVEAL_CHANCE = 0
+"""
+Speed is the number of turns to reach most distant opponent.
+"""
 
 
 class Laser:
     COST = 10
     DAMAGE = 20
-    SPEED = 1
+    SPEED = 0
     REVEAL_CHANCE = 1
 
 
 class Missile:
     COST = 10
     DAMAGE = 20
-    SPEED = 3
+    SPEED = 2
     REVEAL_CHANCE = 0.25
 
 
 class Nuke:
     DAMAGE = 100
-    SPEED = 3
+    SPEED = 2
     REVEAL_CHANCE = 1
+
+
+@unique
+class Weapons(Enum):
+    LASER = Laser
+    MISSILE = Missile
+    NUKE = Nuke
