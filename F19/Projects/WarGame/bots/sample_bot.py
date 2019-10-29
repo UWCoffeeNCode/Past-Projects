@@ -12,7 +12,7 @@ class Bot:
     def action(self, country_status: dict, world_state: dict):
         weapon = choice(list(Weapons))
 
-        target = choice(world_state["alive_players"])
+        target = choice(tuple(world_state["alive_players"]))
 
         return {
             "Weapon": weapon,

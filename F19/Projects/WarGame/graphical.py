@@ -113,7 +113,7 @@ class PyGame:
 
 
         if self.game.get_alive_count() == 1:
-            alive = self.game.get_alive_countries()[0]
+            alive = self.game.get_last_survivor()
             print(self.game.countries[alive].name, "is the last one standing.")
 
         else:

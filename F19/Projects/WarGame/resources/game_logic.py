@@ -36,6 +36,10 @@ class GameLogic:
         """ Returns an integer """
         return sum(country.alive for country in self.countries)
 
+    def get_last_survivor(self):
+        assert self.get_alive_count() == 1
+        return tuple(self.get_alive_countries())[0]
+
     def get_alive_countries(self):
         """ Returns indexes """
         return [pos for pos, country in enumerate(self.countries) if country.alive]

@@ -19,7 +19,7 @@ class Bot:
         target_choices.remove(country_status["ID"])
 
         # Fire!
-        target = choice(target_choices)
+        target = choice(tuple(target_choices))
         weapon = choice(weapon_choices)
 
         return {
