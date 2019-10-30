@@ -10,7 +10,6 @@
 2. Learn how to create an endpoint
 3. Add error handling
 4. Create your own endpoints
-<br>
 
 ## Flask
 
