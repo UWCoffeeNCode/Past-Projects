@@ -11,6 +11,8 @@ Our goal is to make bots that compete in a halo-inspired global war game using P
 
 [Python 3.7](https://www.python.org/downloads/) as the language of choice.
 
+[Pygame](https://www.pygame.org/wiki/GettingStarted/) as our optional visualizer.
+
 
 ## Syllabus
 
