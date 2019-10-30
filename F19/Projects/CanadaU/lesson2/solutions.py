@@ -4,7 +4,7 @@ from collections import Counter
 import praw
 import prawcore
 
-from flask import Flask
+from flask import Flask, request
 
 # Create our Reddit client to communicate with Reddit
 # NOTE: Remember to fill in the '<>'!
@@ -17,10 +17,10 @@ app = Flask(__name__)
 
 # ENDPOINT 1: subscriber count.
 
-@app.route('/subreddit/<subreddit_id>/subscriberCount')
+@app.route('/subreddit/<subreddit_id>/subscribers')
 def subreddit_subscriber_count(subreddit_id):
     try:
-        return (reddit.subreddit(subreddit_id).subscribers, 200)
+        return ({ 'subscribers': reddit.subreddit(subreddit_id).subscribers }, 200)
     except prawcore.exceptions.Redirect:
         return ("Couldn't find subreddit.", 404)
 
@@ -29,7 +29,8 @@ def subreddit_subscriber_count(subreddit_id):
 @app.route('/subreddit/<subreddit_id>/banner')
 def subreddit_banner_image(subreddit_id):
     try:
-        return (reddit.subreddit(subreddit_id).banner_img, 200)
+        banner_img = reddit.subreddit(subreddit_id).banner_img
+        return ("<img src=%s>" % banner_img, 200)
     except prawcore.exceptions.Redirect:
         return ("Couldn't find subreddit.", 404)
 
@@ -37,13 +38,24 @@ def subreddit_banner_image(subreddit_id):
 
 @app.route('/subreddit/<subreddit_id>/top')
 def subreddit_top_posts(subreddit_id):
+    # Check if the user specified the number of posts to get
+    # E.g., /subreddit/uwaterloo/top?limit=100
+    # NOTE: anything after the '?' in a URL is called a QUERY PARAMETER!
+    limit = request.args.get('limit')
+    # If not specified, or invalid, default to 10.
+    try:
+        limit = int(limit)
+    except:
+        limit = 10
+    limit = min(100, limit)
+
     subreddit = reddit.subreddit(subreddit_id)
-    # Get top 10 posts of all time
-    top_posts = subreddit.top('all', limit=10)
+    # Get top posts of all time
+    top_posts = subreddit.top('all', limit=limit)
     # Get title of each post
     top_posts_titles = [ post.title for post in top_posts ]
     # Return dictionary with response
-    return { 'top_posts': list(top_posts_json) }
+    return ({ 'top_posts': list(top_posts_titles) }, 200)
 
 # ENDPOINT 4: endpoint to get most common words
 #
@@ -77,7 +89,7 @@ def subreddit_common_words(subreddit_id):
     # Sort words by count
     sorted_word_count = sorted(filtered_word_count, key=lambda item: item[1], reverse=True)
     # Return dictionary with response
-    return { 'word_count': sorted_word_count }
+    return ({ 'word_count': sorted_word_count }, 200)
 
 if __name__ == "__main__":
     app.run()
