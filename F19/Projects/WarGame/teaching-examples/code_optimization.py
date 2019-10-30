@@ -184,9 +184,9 @@ class Poem:
         return self.__lines[index]
 
 if __name__ == '__main__':
-    path_not_taken = Poem(
-        "Two paths diverged in a yellow wood and ...\nInsert rest of poem",
-        "The path not take",
+    road_not_taken = Poem(
+        "Two roads diverged in a yellow wood and ...\nInsert rest of poem",
+        "The Road Not Taken",
         "Robert Frost"
     )
     # Do operations with the poem
