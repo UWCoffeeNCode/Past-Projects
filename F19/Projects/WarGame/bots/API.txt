@@ -16,7 +16,7 @@ A dictionary containing the following keys
     "active_weapons": [An array of Active Weapon dictionaries]
     "countries": [An array of country_status dictionaries]
     "events": [An array of Event dictionaries]
-    "alive_players": [An array of integers corresponding to country IDs]
+    "alive_players": [A set of integers corresponding to country IDs]
 }
 
 
