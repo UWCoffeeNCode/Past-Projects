@@ -1,6 +1,5 @@
 # Lesson 2 - Creating Back End with Python and Flask
 
-<!-- TODO: add link to Slack -->
 ### [Project](https://github.com/MichaelAEden/DashForReddit) (in progress)
 ### [Slack](https://bit.ly/uwcoffeencodeslack), channel is `#canada-u`
 ### [Slides](https://docs.google.com/presentation/d/18-MUzNydWRpT18ApmdO-NtWpsA37nJWxK2VkwJjHj90/edit?usp=sharing)
@@ -47,7 +46,6 @@ Then if we go to this link, we'll get back a <b>resource</b> which represents th
 
 For example, let's create an endpoint to get the description of any subreddit.
 
-<!-- TODO: Cover endpoint structure in the slides -->
 ```python
 # When we make a new endpoint, we leave the domain out of the path.
 # E.g., instead of canadau.ca/uwaterloo, we just use /uwaterloo
