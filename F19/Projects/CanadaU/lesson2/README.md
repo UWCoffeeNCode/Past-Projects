@@ -29,7 +29,7 @@ Eventually, it will be used to provide data to our front end.
 ```bash
 env FLASK_APP=<path to Python file> FLASK_DEBUG=1 flask run
 ```
-1. Go to <http://localhost:5000/>, and you should see the description for the UWaterloo subreddit!
+4. Go to <http://localhost:5000/>, and you should see the description for the UWaterloo subreddit!
 <br>
 
 <b>Note</b>: `localhost` just means "this computer", and `5000` is the port we're using.
