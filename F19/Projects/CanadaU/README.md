@@ -28,7 +28,6 @@ Technologies we'll be using:
 | 3      | Nov 6  | Create front end w/ React (pt 1)      |
 | 4      | Nov 13 | Create front end w/ React (pt 2)      |
 | 5      | Nov 20 | Tying everything together             |
-| 6      | Nov 27 | Finishing touches                     |
 
 ## Getting Started
 
