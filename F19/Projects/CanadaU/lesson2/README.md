@@ -2,7 +2,7 @@
 
 <!-- TODO: add link to Slack -->
 ### [Project](https://github.com/MichaelAEden/DashForReddit) (in progress)
-### [Slack](https://bit.ly/uwcoffeencodeslack), channel is `#canadau`
+### [Slack](https://bit.ly/uwcoffeencodeslack), channel is `#canada-u`
 ### [Slides](https://docs.google.com/presentation/d/18-MUzNydWRpT18ApmdO-NtWpsA37nJWxK2VkwJjHj90/edit?usp=sharing)
 
 ### Objectives:
