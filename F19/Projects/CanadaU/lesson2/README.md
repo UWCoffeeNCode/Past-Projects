@@ -110,6 +110,7 @@ We'll need these later in our project.
 	- <b>Hint</b>: instead of `subscribers`, use `banner_img`.
 	- <b>Challenge</b>: display the image (use an `<img>` tag)
 3. Endpoint which gets the titles of the top 10 posts of a subreddit.
+    - <b>Challenge</b>: let the user specify how many posts to fetch.
 4. Endpoint which gets the most common words from the top 100 posts of a subreddit.
 	- <b>Challenge</b>: use spaCY to filter out certain words.
 
