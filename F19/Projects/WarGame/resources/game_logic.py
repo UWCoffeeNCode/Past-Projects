@@ -1,4 +1,4 @@
-from math import ceil, pi, sin
+from math import ceil
 from os.path import abspath, dirname
 from typing import List
 
@@ -7,6 +7,7 @@ import os
 
 
 from resources import country, weapons
+from resources import helpers
 
 
 class GameLogic:
@@ -137,10 +138,9 @@ class GameLogic:
     def get_delay(self, action: dict):
         source, target = action["Source"], action["Target"]
 
-        difference = target - source
-        rotation = 2 * pi * difference / len(self.countries)
+        chord_length = helpers.get_distance(self.countries, target, source)
+        chord_length *= action["Weapon"].value.SPEED
 
-        chord_length = action["Weapon"].value.SPEED * sin(rotation / 2)
         return chord_length
 
     def print_events(self):
