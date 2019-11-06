@@ -12,19 +12,19 @@
 ## Getting Started
 
 1. Install [Node](https://nodejs.org/en/download/)
-1. Go to the project folder `CanadaU` (or create a new one if you missed the last workshop).
-1. From your terminal, navigate to the `CanadaU` folder (e.g., `cd ~/Desktop/CanadaU`.
+2. Go to the project folder `CanadaU` (or create a new one if you missed the last workshop).
+3. From your terminal, navigate to the `CanadaU` folder (e.g., `cd ~/Desktop/CanadaU`.
 <br>For help, see [this guide](https://www.git-tower.com/learn/git/ebook/en/command-line/appendix/command-line-101)(skip to "Finding Your Way Around")
-1. Create a new React app:
+4. Create a new React app:
 ```bash
 npx create-react-app react-app
 ```
-1. Start the app:
+5. Start the app:
 ```bash
 cd react-app
 npm start
 ```
-1. Go to <http://localhost:3000/> to see your app in action.
+6. Go to <http://localhost:3000/> to see your app in action.
 <br>
 
 ## React
@@ -48,8 +48,7 @@ export default App;
 
 Go back to <http://localhost:3000/> and you should see it update!
 <br>
-<!-- TODO: link to App.css -->
-To add some styling, create a file in the same `src` folder called `App.css`. Copy from [App.css](link) (I won't be covering CSS in this lesson, but there are lots of tutorials online).
+To add some styling, create a file in the same `src` folder called `App.css`. Copy from [App.css](https://github.com/UWCoffeeNCode/Lessons/blob/master/F19/Projects/CanadaU/lesson3/App.css) (I won't be covering CSS in this lesson, but there are lots of tutorials online).
 <br>
 <br>
 Edit `App.js` to use our CSS file:
@@ -295,6 +294,6 @@ wordCounts: [
 { text: 'bad', value: 10 }
 ```
 
-Some solutions are in `Solutions.js`. Try to work together or ask for help if you're stuck.
+Some solutions are in [Solutions.js](https://github.com/UWCoffeeNCode/Lessons/blob/master/F19/Projects/CanadaU/lesson3/Solutions.js). Try to work together or ask for help if you're stuck.
 
 Good luck!
