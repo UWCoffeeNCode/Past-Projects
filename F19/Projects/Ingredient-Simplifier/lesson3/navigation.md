@@ -33,6 +33,8 @@ export default createAppContainer(
 );
 ```
 
+also run `yarn add react-navigation` and `yarn add react-navigation-tabs`. **important**
+
 4. In the `screens` folder, create the files `CameraScreen.tsx`, `ResultsScreen.tsx`, and `AboutScreen`
 
 5. In each of those files, paste the following template code, and fill in the blanks (remove the square brackets):
