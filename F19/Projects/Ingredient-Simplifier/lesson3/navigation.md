@@ -33,7 +33,7 @@ export default createAppContainer(
 );
 ```
 
-also run `yarn add react-navigation` and `yarn add react-navigation-tabs`. **important**
+also run `yarn add react-navigation`, `yarn add react-navigation-tabs`, `yarn add react-native-gesture-handler`, and `yarn add react-native-reanimated`. **important**
 
 4. In the `screens` folder, create the files `CameraScreen.tsx`, `ResultsScreen.tsx`, and `AboutScreen`
 
