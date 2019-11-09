@@ -5,7 +5,7 @@ A dictionary containing the following keys
 {
     "Alive": [A boolean],
     "Health": [A non-negative integer],
-    "ID": [A unique integer],              
+    "ID": [A unique integer],
     "Resources": [A non-negative integer],
     "Nukes": [A non-negative integer]
 }
@@ -34,13 +34,6 @@ An Action dictionary with an additional key,
     ...
 }
 
-Death Event
-An Event dictionary with an additional key,
-{
-    "Death": [The ID of a country]
-    ...
-}
-
 Attack Event
 An Event dictionary with an additional key,
 {
@@ -52,4 +45,9 @@ Active Weapon
 {
     "Delay": [An integer representing the delay until the weapon hits its target]
     "Event": [An attack event]
+}
+
+Death Event
+{
+    "Death": [An attack event]
 }

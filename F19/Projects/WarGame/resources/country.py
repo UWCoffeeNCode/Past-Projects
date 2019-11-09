@@ -1,4 +1,6 @@
+import traceback
 from copy import deepcopy
+from typing import Dict
 
 from resources import weapons
 
@@ -13,13 +15,13 @@ class Country:
         self.health = self.DEFAULT_HEALTH
         self.resources = self.DEFAULT_RESOURCES
         self.nukes = self.NUKE_STOCKPILE
-        self.killer = None  # Player ID
+        self.killer = None  # Attack Event dictionary
 
         # Each person's bot is stored here
         # We must instantiate each class
         self.player = player_class()
 
-    def get_action(self, world_state: dict):
+    def get_action(self, world_state: Dict):
         """ Get the action from the player bot
         """
 
@@ -27,9 +29,9 @@ class Country:
 
         try:
             action = self.player.action(deepcopy(country_status), deepcopy(world_state))
-        except Exception as e:
+        except Exception:
             print("Caught exception for", self.name)
-            print(e)
+            print(traceback.format_exc())
             action = {}
 
         action["Source"] = self.id
@@ -37,7 +39,7 @@ class Country:
 
         return action
 
-    def _do_action(self, action):
+    def _do_action(self, action: Dict):
         if "Weapon" in action:
             if action["Weapon"] == weapons.Weapons.NUKE:
                 action["Success"] = self.nukes > 0
@@ -60,7 +62,7 @@ class Country:
 
         return country_status
 
-    def take_damage(self, action: dict):
+    def take_damage(self, action: Dict):
         damage = action["Event"]["Weapon"].value.DAMAGE
         source = action["Event"]["Source"]
 
@@ -69,4 +71,7 @@ class Country:
 
             if self.health <= 0:
                 self.health = 0
-                self.killer = source
+                self.killer = action["Event"]
+
+    def __repr__(self):
+        return self.name + ": " + str(self.serialize())

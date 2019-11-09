@@ -24,7 +24,10 @@ class AnimatedWeapon:
         sx, sy = self.start
         ex, ey = self.end
 
-        delta = (time.time() - self.start_time) / self.get_max_time()
+        if self.get_max_time():
+            delta = (time.time() - self.start_time) / self.get_max_time()
+        else:  # Weapon requiring 0 turns does not need animated position
+            delta = 1
 
         x = sx + (ex - sx) * delta
         y = sy + (ey - sy) * delta
@@ -41,7 +44,7 @@ class AnimatedWeapon:
             self.remove = True
 
     def get_max_time(self):
-        return (self.weapon.value.SPEED + 1) * self.turn_length
+        return self.weapon.value.SPEED * self.turn_length
 
     def _get_colour(self):
         return pygame.Color(*self.weapon.value.COLOUR)
@@ -56,7 +59,7 @@ class Trail:
         self.last_pos = []
         self.counter = self.INTERVAL
 
-    def draw(self, window, new_pos):
+    def draw(self, window, new_pos: Tuple[int, int]):
         self._update(new_pos)
 
         # Draw trail
@@ -64,7 +67,7 @@ class Trail:
             for point in self.last_pos:
                 pygame.draw.circle(window, self.colour, point, 2)
 
-    def _update(self, new_pos):
+    def _update(self, new_pos: Tuple[int, int]):
         self.counter -= 1
 
         if self.counter <= 0:
@@ -73,3 +76,23 @@ class Trail:
 
             while len(self.last_pos) > self.COUNT:
                 del self.last_pos[0]
+
+
+class ActiveWeapons:
+    def __init__(self):
+        self.weapons = []
+
+    def add(self, start: Tuple[int, int], end: Tuple[int, int],
+            event, turn_length):
+        self.weapons.append(AnimatedWeapon(start, end, event, turn_length))
+
+    def draw(self, window):
+        explosions = []
+
+        for e in self.weapons[:]:
+            e.draw(window)
+            if e.remove:
+                self.weapons.remove(e)
+                explosions.append((e.rect.center, e.weapon))
+
+        return explosions
