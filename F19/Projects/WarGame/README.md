@@ -19,11 +19,10 @@ Our goal is to make bots that compete in a halo-inspired global war game using P
 Lesson # | Date | Description
 --|--|--
 1 | Oct 8  | Introduction to the game and SDK
-2 | Oct 29 | Building your first bot
-3 | Nov 5  | Making improvements
-4 | Nov 12 | First wargame competition
-5 | Nov 19 | Building the 2nd version of your bot
-6 | Nov 26 | Final competition and pizza!
+2 | Oct 29 | Building a bot in class
+3 | Nov 5  | Building your bot
+4 | Nov 12 | Building your bot continued
+5 | Nov 19 | Final competition and pizza!
 
 ## Lesson 1
 

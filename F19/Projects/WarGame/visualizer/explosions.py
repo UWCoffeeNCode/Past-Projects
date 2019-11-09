@@ -24,9 +24,9 @@ def load_explosions():
 
 
 class Explosion:
-    def __init__(self, pos: Tuple[int, int], frame: int):
+    def __init__(self, pos: Tuple[int, int], weapon):
         self.pos = pos
-        self.frame = frame
+        self.frame = weapon.value.EXPLOSION_SIZE
 
     def draw(self, window):
         explosion = explosionImages[self.frame]
@@ -38,6 +38,21 @@ class Explosion:
 
         window.blit(explosion["Image"], (x, y))
         self.frame -= 1
+
+
+class Explosions:
+    def __init__(self):
+        self.explosions = []
+
+    def add(self, pos, weapon):
+        self.explosions.append(Explosion(pos, weapon))
+
+    def draw(self, window):
+        for e in self.explosions[:]:
+            e.draw(window)
+            if not e.frame:
+                self.explosions.remove(e)
+
 
 
 explosionImages = load_explosions()
