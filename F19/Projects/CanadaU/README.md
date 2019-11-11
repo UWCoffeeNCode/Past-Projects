@@ -25,9 +25,8 @@ Technologies we'll be using:
 |--------|--------|---------------------------------------|
 | 1      | Oct 9  | Try Reddit API                        |
 | 2      | Oct 30 | Create back end w/ Flask and Python   |
-| 3      | Nov 6  | Create front end w/ React (pt 1)      |
-| 4      | Nov 13 | Create front end w/ React (pt 2)      |
-| 5      | Nov 20 | Tying everything together             |
+| 3      | Nov 6  | Create front end w/ React             |
+| 4      | Nov 13 | Tying everything together             |
 
 ## Getting Started
 
