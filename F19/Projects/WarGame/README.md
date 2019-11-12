@@ -24,6 +24,8 @@ Lesson # | Date | Description
 4 | Nov 12 | Building your bot continued
 5 | Nov 19 | Final competition and pizza!
 
-## Lesson 1
+## Lessons
 
-[Lesson 1 Slide](https://docs.google.com/presentation/d/1JaSLQaqDy9lpNd4bHPm-g_9DwP3s-mNK-nmlz7Adhjc/edit?usp=sharing)
+[Lesson 1 Slides](https://docs.google.com/presentation/d/1JaSLQaqDy9lpNd4bHPm-g_9DwP3s-mNK-nmlz7Adhjc/edit?usp=sharing)
+
+[Python Over the Years - Presentation](https://docs.google.com/presentation/d/1xc3eQdm_E4EMJ7pONKcvZgNTmY0j4l8OlS_CudPV7hs/edit?usp=sharing)
