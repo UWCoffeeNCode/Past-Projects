@@ -124,7 +124,6 @@ For example, if our back end needs to send a subreddit to our front end, it will
   "wordCounts": {
     "midterm": 100,
     "goose": 34,
-    // ...
   }
 }
 ```
@@ -143,8 +142,7 @@ For example, if our back end needs to send a subreddit to our front end, it will
     "display_name": "uwaterloo",
     "subscribers": 45678,
     "icon": "https://a.thumbs.redditmedia.com/c1iqtotu4lNlCxkJBex6SEtlikJBqt6WmKBNgMQKjS0.png",
-  },
-  // ...
+  }
 }
 ```
 
