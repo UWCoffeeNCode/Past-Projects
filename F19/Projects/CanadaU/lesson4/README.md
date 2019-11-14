@@ -61,6 +61,11 @@ We will make changes to the Python file we created in Workshop 2.
 2. Create an <b>endpoint</b> which sends front-end files to the client.
 
   ```python
+  # Make change at top of file
+  from flask import Flask, send_from_directory
+  
+  # ...
+  
   @app.route('/', defaults={'path': ''})
   @app.route('/<path:path>')
   def serve(path):
@@ -75,7 +80,7 @@ We will make changes to the Python file we created in Workshop 2.
   ```bash
   env FLASK_APP=app.py FLASK_DEBUG=1 flask run
   ```
-  then go to <http://localhost:5000>. You should now see you're React app!
+  then go to <http://localhost:5000>. You should now see your React app!
 
 
 ## JSON and JavaScript Objects
