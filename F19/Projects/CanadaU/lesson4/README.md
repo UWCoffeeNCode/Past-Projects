@@ -75,7 +75,7 @@ We will make changes to the Python file we created in Workshop 2.
   ```bash
   env FLASK_APP=app.py FLASK_DEBUG=1 flask run
   ```
-  then go to <https://localhost:5000>. You should now see you're React app!
+  then go to <http://localhost:5000>. You should now see you're React app!
 
 
 ## JSON and JavaScript Objects
