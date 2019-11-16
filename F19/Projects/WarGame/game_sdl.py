@@ -101,7 +101,7 @@ class TextGame:
 
         if self.game.countries.get_alive_count() == 1:
             alive = self.game.countries.get_survivor()
-            print(self.game.countries[alive].name, "is the last one standing.")
+            print(alive, "is the last one standing.")
 
         else:
             print("There were no survivors.")

@@ -7,7 +7,8 @@ from resources import helpers, weapons
 
 
 class GameLogic:
-    MAX_TURNS = 30
+    MAX_TURNS = 100
+    __slots__ = ('countries', 'events', 'active_weapons', 'turn')
 
     def __init__(self):
         self.countries = Countries()
@@ -16,17 +17,15 @@ class GameLogic:
         self.turn = 1
 
     def do_turn(self):
-        print()
-        print("Round", self.turn)
         actions = self._get_actions()
         self.events = []
         self._process_actions(actions)
         self._run_active()
-        self._print_events()
         self.turn += 1
 
     def is_finished(self):
         if self.turn > self.MAX_TURNS:
+            print("Turn", self.turn, self.countries)
             return True
 
         return self.countries.get_alive_count() <= 1 and not self.active_weapons
@@ -87,7 +86,9 @@ class GameLogic:
 
         return chord_length
 
-    def _print_events(self):
+    def print_events(self):
+        print("Round", self.turn - 1)
+
         name = self.countries.get_name
 
         for event in self.events:
@@ -117,3 +118,5 @@ class GameLogic:
                     print(source, "decided to wait and stared at", target)
                 else:
                     print(source, "decided to wait.")
+
+        print()

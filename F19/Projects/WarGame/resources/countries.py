@@ -1,5 +1,6 @@
 from os.path import abspath, dirname
 from typing import Dict, List
+from random import shuffle
 
 import importlib
 import os
@@ -9,12 +10,21 @@ from resources import helpers
 
 
 class Countries:
+    __slots__ = 'countries',
     def __init__(self):
-        self.countries = get_countries()
+        BOTS = get_bots()
 
-        # Initialize ids
-        for i, country in enumerate(self.countries):
-            country.id = i
+        self.countries = []
+
+        order = list(BOTS.keys())
+        shuffle(order)
+
+        for i, name in enumerate(order):
+            bot_class = BOTS[name]
+            current = Country(bot_class)
+            current.name = name.replace("_", " ").title()
+            current.id = i
+            self.countries.append(current)
 
     def check_deaths(self, alive_players: List):
         events = []
@@ -31,7 +41,7 @@ class Countries:
                 })
 
                 if self.countries[player].nukes:
-                    self.countries[source].nukes += self.countries[player].nukes
+                    self.countries[source].nukes += self.countries[player].nukes + 1
                     self.countries[player].nukes = 0
 
         return events
@@ -64,8 +74,13 @@ class Countries:
         return self.countries[country_id].name
 
     def get_survivor(self):
-        assert self.get_alive_count() == 1
-        return tuple(self.get_alive())[0]
+        assert self.get_alive_count() in (0, 1)
+
+        if self.get_alive_count():
+            alive = tuple(self.get_alive())[0]
+            return self.countries[alive].name
+        else:
+            return None
 
     def serialize_countries(self):
         countries = []
@@ -96,16 +111,3 @@ def get_bots():
         BOTS[name] = importlib.import_module(module, "bots").Bot
 
     return BOTS
-
-
-def get_countries():
-    BOTS = get_bots()
-
-    countries = []
-    for name in BOTS:
-        bot_class = BOTS[name]
-        current = Country(bot_class)
-        current.name = name
-        countries.append(current)
-
-    return countries

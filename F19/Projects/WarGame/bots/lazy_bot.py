@@ -27,12 +27,15 @@ class Bot:
         target_choices.remove(country_status["ID"])
 
         # Fire at...
-        target = choice(tuple(target_choices))
+        if target_choices:
+            target = choice(tuple(target_choices))
 
-        return {
-            "Weapon": weapon,
-            "Target": target
-        }
+            return {
+                "Weapon": weapon,
+                "Target": target
+            }
+
+        return {}
 
     def has_nukes(self, country_status: dict):
         return country_status["Nukes"] > 0

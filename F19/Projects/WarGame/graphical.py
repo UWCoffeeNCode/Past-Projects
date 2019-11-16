@@ -8,6 +8,8 @@ import time
 
 
 from resources.game_logic import GameLogic
+from resources.country import Country
+
 
 pygame.init()
 window = pygame.display.set_mode((800, 600))
@@ -28,6 +30,7 @@ TITLE_FONT = pygame.font.Font("fonts/OpenSans-Regular.ttf", 24)
 
 
 class PyGame:
+    BATCH = False
     FPS = 60
     WIDTH = 800
     HEIGHT = 600
@@ -71,12 +74,14 @@ class PyGame:
             if time.time() - self.timer > self.TURN_LENGTH * self.game.turn:
                 if not self.game.is_finished():
                     self.game.do_turn()
+                    self.game.print_events()
                     self.animate_turn()
                     self.turn_surface = TITLE_FONT.render("Round " + str(self.game.turn),
                                                           True, GREY)
 
                 elif not self.end_game:
-                    self.end_game = time.time() + 1
+                    self.end_game = time.time()
+                    self.end_game += int(not self.BATCH)
 
             pygame.display.update()
             self.clock.tick(self.FPS)
@@ -88,14 +93,13 @@ class PyGame:
 
         if self.game.countries.get_alive_count() == 1:
             alive = self.game.countries.get_survivor()
-            print(self.game.countries.countries[alive].name, "is the last one standing.")
+            print(alive, "is the last one standing.")
 
         else:
             print("There were no survivors.")
 
-        print(self.game.countries)
-
-        self._finish_game()
+        if not self.BATCH:
+            self._finish_game()
 
 
     def animate_turn(self):
@@ -113,11 +117,25 @@ class PyGame:
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.quit()
+
                     return 0
 
             self.clock.tick(self.FPS)
 
 
 if __name__ == "__main__":
-    active_game = PyGame(window)
-    active_game.start()
+    # Set this to True to watch many repeated conflicts
+    PyGame.BATCH = False
+
+    Country.verbose = not PyGame.BATCH
+    if PyGame.BATCH:
+        PyGame.TURN_LENGTH = 0.1
+
+        for i in range(100):
+            active_game = PyGame(window)
+            active_game.start()
+        pygame.quit()
+
+    else:
+        active_game = PyGame(window)
+        active_game.start()

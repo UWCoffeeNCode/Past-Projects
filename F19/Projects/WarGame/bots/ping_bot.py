@@ -8,7 +8,7 @@ from resources.weapons import Weapons
 class Bot:
     """
     If you fire a laser it will fire a laser
-    If you nuke it- don't expect a response
+    If you nuke it- it'll try too..
 
     A bot that always fires at the last enemy
     """
@@ -30,8 +30,7 @@ class Bot:
                 "Target": target
             }
 
-        else:
-            return {}
+        return {}
 
     def review_events(self, events: List[dict], self_id: int):
         for event in events:
