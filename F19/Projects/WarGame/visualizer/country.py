@@ -25,7 +25,7 @@ class Country:
         self.border = pygame.Rect(0, 0, self.SIZE, self.SIZE)
         self.inner = self.border.inflate(-6, -6)
 
-        display_name = self.country.name.replace("_", " ").title()
+        display_name = self.country.name
         self.name = TextRect(SANS_FONT, display_name, GREY)
         self.health_text = TextRect(SANS_FONT, str(self.country.health), RED)
         self.nuke_text = TextRect(SANS_FONT, str(self.country.nukes), GREEN)

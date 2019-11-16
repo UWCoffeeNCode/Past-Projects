@@ -1,7 +1,7 @@
 from math import pi, sin
 from typing import Dict, List
 
-from resources import weapons
+from resources.weapons import Weapons
 
 
 def get_distance(countries: List, country_one: int, country_two: int):
@@ -17,7 +17,7 @@ def is_valid_action(action: Dict, alive_countries: List):
             return True
 
         return all((
-            action["Weapon"] in weapons.Weapons,
+            action["Weapon"] in Weapons,
             action["Target"] in alive_countries
         ))
     except KeyError as e:

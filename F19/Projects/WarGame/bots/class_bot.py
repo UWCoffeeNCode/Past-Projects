@@ -10,7 +10,7 @@ class Bot:
     Otherwise if there are no adjacent bots fire anywhere else.
     """
 
-    def action(self, country_status: dict, world_state: dict):    
+    def action(self, country_status: dict, world_state: dict):
         if self.has_nukes(country_status):
             weapon_choices = [Weapons.NUKE]
 
@@ -34,13 +34,16 @@ class Bot:
             target_choices = world_state["alive_players"]
 
         # Fire!
-        target = choice(tuple(target_choices))
-        weapon = choice(weapon_choices)
+        if target_choices:
+            target = choice(tuple(target_choices))
+            weapon = choice(weapon_choices)
 
-        return {
-            "Weapon": weapon,
-            "Target": target
-        }
+            return {
+                "Weapon": weapon,
+                "Target": target
+            }
+
+        return {}
 
     def has_nukes(self, country_status: dict):
         return country_status["Nukes"] > 0

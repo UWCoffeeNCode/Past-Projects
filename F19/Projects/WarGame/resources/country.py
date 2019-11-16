@@ -1,14 +1,24 @@
 import traceback
-from copy import deepcopy
 from typing import Dict
+from resources.weapons import Weapons
+from copy import deepcopy
+import pickle
 
-from resources import weapons
+
+def mydeepcopy(obj):
+    # https://stackoverflow.com/a/19065623
+    try:
+       return cPickle.loads(cPickle.dumps(obj, -1))
+    except:
+       return deepcopy(obj)
 
 
 class Country:
+    __slots__ = ('alive', 'health', 'id', 'name', 'resources', 'nukes', 'killer', 'player')
     DEFAULT_HEALTH = 100
     DEFAULT_RESOURCES = 100
-    NUKE_STOCKPILE = 1
+    NUKE_STOCKPILE = 0
+    verbose = True
 
     def __init__(self, player_class):
         self.alive = True
@@ -28,10 +38,11 @@ class Country:
         country_status = self.serialize()
 
         try:
-            action = self.player.action(deepcopy(country_status), deepcopy(world_state))
+            action = self.player.action(country_status, mydeepcopy(world_state))
         except Exception:
-            print("Caught exception for", self.name)
-            print(traceback.format_exc())
+            if self.verbose:
+                print("Caught exception for", self.name)
+                print(traceback.format_exc())
             action = {}
 
         action["Source"] = self.id
@@ -41,7 +52,7 @@ class Country:
 
     def _do_action(self, action: Dict):
         if "Weapon" in action:
-            if action["Weapon"] == weapons.Weapons.NUKE:
+            if action["Weapon"] == Weapons.NUKE:
                 action["Success"] = self.nukes > 0
 
                 if action["Success"]:
