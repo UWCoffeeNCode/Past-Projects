@@ -19,10 +19,11 @@ class Countries:
         order = list(BOTS.keys())
         shuffle(order)
 
-        for i, name in enumerate(order):
-            bot_class = BOTS[name]
+        for i, filename in enumerate(order):
+            bot_class = BOTS[filename]
             current = Country(bot_class)
-            current.name = name.replace("_", " ").title()
+            current.filename = filename
+            current.name = filename.replace("_", " ").title()
             current.id = i
             self.countries.append(current)
 
@@ -74,13 +75,21 @@ class Countries:
         return self.countries[country_id].name
 
     def get_survivor(self):
-        assert self.get_alive_count() in (0, 1)
+        count = self.get_alive_count()
 
-        if self.get_alive_count():
+        if count == 1:
             alive = tuple(self.get_alive())[0]
             return self.countries[alive].name
         else:
             return None
+
+    def import_state(self, countries):
+        lookup = {}
+        for c in countries:
+            lookup[c["ID"]] = c
+
+        #for i in lookup:
+        #    self.countries
 
     def serialize_countries(self):
         countries = []

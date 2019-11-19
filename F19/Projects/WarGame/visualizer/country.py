@@ -17,6 +17,7 @@ SANS_FONT = pygame.font.Font("fonts/OpenSans-Regular.ttf", 14)
 class Country:
     SIZE = 50
 
+    FADED_COLOUR = pygame.Color(0, 0, 20)
     BORDER_COLOUR = pygame.Color(0, 0, 100)
 
     def __init__(self, country, pos: Tuple[int, int]):
@@ -33,7 +34,12 @@ class Country:
         self.set_pos(pos)
 
     def draw(self, window: pygame.Surface):
-        window.fill(self.BORDER_COLOUR, self.border)
+        if self.country.health:
+            colour = self.BORDER_COLOUR
+        else:
+            colour = self.FADED_COLOUR
+
+        window.fill(colour, self.border)
         window.fill(BLACK, self.inner)
 
         if self.country.health:

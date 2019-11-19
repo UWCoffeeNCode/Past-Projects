@@ -25,3 +25,6 @@ class Countries:
         # Draw countries
         for c in self.countries:
             c.draw(window)
+
+    def get_pos(self, i):
+        return self.countries[i].border.center

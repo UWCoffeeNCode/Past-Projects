@@ -5,7 +5,7 @@ from resources.weapons import Weapons
 
 class Bot:
     """
-    A shark that tries to kill the weakest person who holds the most nukes,
+    An opportunist that tries to kill the weakest person with the most nukes,
     Unfortunately that may be itself.
     """
 

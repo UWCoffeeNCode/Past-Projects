@@ -5,8 +5,8 @@ from resources.weapons import Weapons
 
 class Bot:
     """
-    A bot ready to fire anything at anyone,
-    Or nothing at no one..
+    A bot to fire anything at anyone,
+    Including itself..
     """
 
     def action(self, country_status: dict, world_state: dict):

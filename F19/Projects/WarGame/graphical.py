@@ -17,6 +17,7 @@ window = pygame.display.set_mode((800, 600))
 from visualizer.weapons import ActiveWeapons
 from visualizer.countries import Countries
 from visualizer.explosions import Explosions
+from visualizer.particles import Particles
 
 
 BLACK = pygame.Color(0, 0, 0)
@@ -42,6 +43,7 @@ class PyGame:
         self.clock = pygame.time.Clock()
         self.active_weapons = ActiveWeapons()
         self.explosions = Explosions()
+        self.particles = Particles()
         self.timer = time.time()
         self.end_game = None
 
@@ -66,6 +68,7 @@ class PyGame:
 
             self.countries.draw(self.window)
             self.explosions.draw(self.window)
+            self.particles.draw(self.window, self.FPS)
 
             explosions = self.active_weapons.draw(self.window)
             for e in explosions:
@@ -110,6 +113,10 @@ class PyGame:
 
                 self.active_weapons.add(start, end, event, self.TURN_LENGTH)
 
+            elif "Death" in event:
+                pos = self.countries.get_pos(event["Death"]["Target"])
+                self.particles.add(pos)
+
     def _finish_game(self):
         running = True
         while running:
@@ -129,7 +136,7 @@ if __name__ == "__main__":
 
     Country.verbose = not PyGame.BATCH
     if PyGame.BATCH:
-        PyGame.TURN_LENGTH = 0.1
+        PyGame.TURN_LENGTH = 0.2
 
         for i in range(100):
             active_game = PyGame(window)
