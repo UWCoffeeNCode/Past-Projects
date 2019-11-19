@@ -1,20 +1,13 @@
 import traceback
 from typing import Dict
+
+
 from resources.weapons import Weapons
-from copy import deepcopy
-import pickle
-
-
-def mydeepcopy(obj):
-    # https://stackoverflow.com/a/19065623
-    try:
-       return cPickle.loads(cPickle.dumps(obj, -1))
-    except:
-       return deepcopy(obj)
+from resources.helpers import mydeepcopy
 
 
 class Country:
-    __slots__ = ('alive', 'health', 'id', 'name', 'resources', 'nukes', 'killer', 'player')
+    __slots__ = ("alive", "filename", "health", "id", "name", "resources", "nukes", "killer", "player")
     DEFAULT_HEALTH = 100
     DEFAULT_RESOURCES = 100
     NUKE_STOCKPILE = 0
@@ -65,8 +58,10 @@ class Country:
     def serialize(self):
         country_status = {
             "Alive": self.alive,
+            "Filename": self.filename,
             "Health": self.health,
             "ID": self.id,
+            "Name": self.name,
             "Resources": self.resources,
             "Nukes": self.nukes
         }

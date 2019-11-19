@@ -4,10 +4,11 @@ from typing import Dict, List
 
 from resources.countries import Countries
 from resources import helpers, weapons
+from resources.helpers import mydeepcopy
 
 
 class GameLogic:
-    MAX_TURNS = 100
+    MAX_TURNS = 200
     __slots__ = ('countries', 'events', 'active_weapons', 'turn')
 
     def __init__(self):
@@ -23,8 +24,14 @@ class GameLogic:
         self._run_active()
         self.turn += 1
 
+    def import_state(self, world_state):
+        self.active_weapons = mydeepcopy(world_state["active_weapons"])
+        self.countries.import_state(world_state["countries"])
+        self.events = mydeepcopy(world_state["events"])
+
     def is_finished(self):
         if self.turn > self.MAX_TURNS:
+            print("Maximum turn count", self.MAX_TURNS, "reached.")
             print("Turn", self.turn, self.countries)
             return True
 

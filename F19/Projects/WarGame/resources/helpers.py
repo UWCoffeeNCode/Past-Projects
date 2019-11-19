@@ -1,5 +1,8 @@
+from copy import deepcopy
 from math import pi, sin
 from typing import Dict, List
+import pickle
+
 
 from resources.weapons import Weapons
 
@@ -23,3 +26,10 @@ def is_valid_action(action: Dict, alive_countries: List):
     except KeyError as e:
         print("KeyError", e)
         return False
+
+def mydeepcopy(obj):
+    # https://stackoverflow.com/a/19065623
+    try:
+       return pickle.loads(pickle.dumps(obj, -1))
+    except:
+       return deepcopy(obj)

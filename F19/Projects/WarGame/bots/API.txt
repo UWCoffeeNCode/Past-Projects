@@ -4,8 +4,10 @@ country_status
 A dictionary containing the following keys
 {
     "Alive": [A boolean],
+    "Filename": [A string],
     "Health": [A non-negative integer],
     "ID": [A unique integer],
+    "Name": [A string],
     "Resources": [A non-negative integer],
     "Nukes": [A non-negative integer]
 }

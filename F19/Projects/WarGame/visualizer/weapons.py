@@ -52,12 +52,12 @@ class AnimatedWeapon:
 
 class Trail:
     COUNT = 10
-    INTERVAL = 10
+    INTERVAL = 8
 
     def __init__(self, colour):
         self.colour = colour
         self.last_pos = []
-        self.counter = self.INTERVAL
+        self.counter = time.time()
 
     def draw(self, window, new_pos: Tuple[int, int]):
         self._update(new_pos)
@@ -68,10 +68,9 @@ class Trail:
                 pygame.draw.circle(window, self.colour, point, 2)
 
     def _update(self, new_pos: Tuple[int, int]):
-        self.counter -= 1
-
-        if self.counter <= 0:
-            self.counter = self.INTERVAL
+        now = time.time()
+        if self.counter <= now:
+            self.counter += 1 / self.INTERVAL
             self.last_pos.append(new_pos)
 
             while len(self.last_pos) > self.COUNT:
