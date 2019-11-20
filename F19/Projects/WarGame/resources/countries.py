@@ -41,9 +41,8 @@ class Countries:
                     "Death": event,
                 })
 
-                if self.countries[player].nukes:
-                    self.countries[source].nukes += self.countries[player].nukes + 1
-                    self.countries[player].nukes = 0
+                self.countries[source].nukes += self.countries[player].nukes + 1
+                self.countries[player].nukes = 0
 
         return events
 
