@@ -61,7 +61,7 @@ We can no longer use `expo-camera` or `expo-permissions` because we have ejected
 
 First, uninstall the old modules.
 ```
-yarn remove expo-camera expo-permissions
+yarn remove expo-camera
 ```
 Now install react-native-camera:
 ```
