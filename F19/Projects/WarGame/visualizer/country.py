@@ -11,14 +11,18 @@ GREEN = pygame.Color(0, 255, 0)
 BLACK = pygame.Color(0, 0, 0)
 GREY = pygame.Color(120, 120, 120)
 
-SANS_FONT = pygame.font.Font("fonts/OpenSans-Regular.ttf", 14)
+SMALL_FONT = pygame.font.Font("fonts/bebas_neue/BebasNeue-Regular.ttf", 20)
+MONO_FONT = pygame.font.Font("fonts/bebas_neue/BebasNeue-Regular.ttf", 24)
+nuke_image = pygame.image.load("images/nuclear.png").convert_alpha()
+nuke_image = pygame.transform.smoothscale(nuke_image, (16, 16))
+nuke_rect = nuke_image.get_rect()
 
 
 class Country:
     SIZE = 50
 
     FADED_COLOUR = pygame.Color(0, 0, 20)
-    BORDER_COLOUR = pygame.Color(0, 0, 100)
+    BORDER_COLOUR = pygame.Color(20, 20, 160)
 
     def __init__(self, country, pos: Tuple[int, int]):
         self.country = country
@@ -27,9 +31,9 @@ class Country:
         self.inner = self.border.inflate(-6, -6)
 
         display_name = self.country.name
-        self.name = TextRect(SANS_FONT, display_name, GREY)
-        self.health_text = TextRect(SANS_FONT, str(self.country.health), RED)
-        self.nuke_text = TextRect(SANS_FONT, str(self.country.nukes), GREEN)
+        self.name = TextRect(SMALL_FONT, display_name, GREY)
+        self.health_text = TextRect(MONO_FONT, str(self.country.health), RED)
+        self.kill_text = TextRect(SMALL_FONT, str(len(self.country.kills)), GREEN)
 
         self.set_pos(pos)
 
@@ -46,17 +50,24 @@ class Country:
             self.health_text.text = str(self.country.health)
             self.health_text.check_update()
 
-            self.nuke_text.text = str(self.country.nukes)
-            self.nuke_text.check_update()
+            self.kill_text.text = str(len(self.country.kills))
+            self.kill_text.check_update()
 
             self.name.draw(window)
-            self.nuke_text.draw(window)
+            self.kill_text.draw(window)
             self.health_text.draw(window)
+
+            # Draw nuke images
+            pos = nuke_rect.copy()
+            pos.topleft = self.border.midbottom
+            for i in range(self.country.nukes):
+                window.blit(nuke_image, pos)
+                pos.x += pos.width
 
     def set_pos(self, pos: Tuple[int, int]):
         self.border.center = pos
         self.inner.center = pos
 
         self.name.rect.midbottom = self.border.midtop
-        self.health_text.rect.midbottom = self.name.rect.midtop
-        self.nuke_text.rect.center = pos
+        self.health_text.rect.center = pos
+        self.kill_text.rect.midbottom = self.name.rect.midtop

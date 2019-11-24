@@ -11,6 +11,7 @@ from resources import helpers
 
 class Countries:
     __slots__ = 'countries',
+
     def __init__(self):
         BOTS = get_bots()
 
@@ -41,7 +42,9 @@ class Countries:
                     "Death": event,
                 })
 
-                self.countries[source].nukes += self.countries[player].nukes + 1
+                self.countries[source].kills.append(player)
+                self.countries[source].nukes += 1
+                self.countries[source].nukes += self.countries[player].nukes
                 self.countries[player].nukes = 0
 
         return events
@@ -56,7 +59,7 @@ class Countries:
 
             action = country.get_action(world_state)
 
-            # Check if action is valid
+            # Check if attack is valid
             if helpers.is_valid_action(action, alive_countries):
                 actions.append(action)
 
@@ -64,7 +67,7 @@ class Countries:
 
     def get_alive(self):
         """ Returns indexes """
-        return [pos for pos, country in enumerate(self.countries) if country.alive]
+        return set([pos for pos, country in enumerate(self.countries) if country.alive])
 
     def get_alive_count(self):
         """ Returns an integer """
@@ -76,11 +79,15 @@ class Countries:
     def get_survivor(self):
         count = self.get_alive_count()
 
+        if count == 0:
+            return None
         if count == 1:
             alive = tuple(self.get_alive())[0]
             return self.countries[alive].name
         else:
-            return None
+            ids = self.get_alive()
+            names = sorted([self.countries[i].name for i in ids])
+            return ", ".join(names)
 
     def import_state(self, countries):
         lookup = {}

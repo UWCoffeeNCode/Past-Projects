@@ -11,6 +11,8 @@ Country.verbose = False  # Don't show error messages
 
 
 class BatchGame:
+    __slots__ = ('game',)
+
     def __init__(self):
         self.game = GameLogic()
 
@@ -20,12 +22,14 @@ class BatchGame:
 
         return self.game.countries.get_survivor()
 
+
 def show_results(final):
     size = sum(final.values())
     print("%-15s | %--4s | %s" % ("Bot", "Wins", "Perc"))
     for bot, wins in final.most_common():
         perc = str(round(100 * wins / size)) + "%"
         print("%-15s | %--4d | %s" % (bot, wins, perc))
+
 
 def branch(LOOP_COUNT, queue):
     results = Counter()
@@ -36,6 +40,7 @@ def branch(LOOP_COUNT, queue):
         results[survivor] += 1
 
     queue.put(results)
+
 
 def main(count, procs):
     LOOP_COUNT = 2100 // procs
@@ -59,8 +64,10 @@ def main(count, procs):
     for _ in range(procs):
         final += queue.get()
 
-    show_results(final)
+    return final
+
 
 if __name__ == "__main__":
     procs = max(1, multiprocessing.cpu_count() - 1)
-    main(100, procs)
+    final = main(100, procs)
+    show_results(final)

@@ -1,5 +1,5 @@
 from random import choice
-from typing import List
+from typing import Dict, List
 
 
 from resources.weapons import Weapons
@@ -17,7 +17,7 @@ class Bot:
         self.last_enemy = None
         self.last_weapon = None
 
-    def action(self, country_status: dict, world_state: dict):
+    def action(self, country_status: Dict, world_state: Dict):
         # Did anyone fire at it
         self.review_events(world_state["events"], country_status["ID"])
 
@@ -32,11 +32,13 @@ class Bot:
 
         return {}
 
-    def review_events(self, events: List[dict], self_id: int):
+    def review_events(self, events: List[Dict], self_id: int):
         for event in events:
             # Search for only events that fire at this bot
-            if ("Weapon" in event
-                    and event["Weapon"] in Weapons and event["Target"] == self_id):
-                self.last_enemy = event["Source"]
-                self.last_weapon = event["Weapon"]
-                break
+            if "Attack" in event:
+                attack = event["Attack"]
+                if ("Weapon" in attack
+                        and attack["Weapon"] in Weapons and attack["Target"] == self_id):
+                    self.last_enemy = attack["Source"]
+                    self.last_weapon = attack["Weapon"]
+                    break

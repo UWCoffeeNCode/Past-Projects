@@ -12,7 +12,7 @@ class TextRect:
 
     def check_update(self):
         if self.text != self.last_text:
-            #Antialias is True
+            # Antialias is True
             self.surface = self.font.render(self.text, True, self.foreColour)
             self.last_text = self.text
             self.realignRect()

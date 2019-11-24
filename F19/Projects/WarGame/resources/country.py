@@ -3,11 +3,12 @@ from typing import Dict
 
 
 from resources.weapons import Weapons
-from resources.helpers import mydeepcopy
+from resources.helpers import is_valid_action, mydeepcopy
 
 
 class Country:
-    __slots__ = ("alive", "filename", "health", "id", "name", "resources", "nukes", "killer", "player")
+    __slots__ = ("alive", "filename", "health", "id", "kills", "name",
+                 "resources", "nukes", "killer", "player")
     DEFAULT_HEALTH = 100
     DEFAULT_RESOURCES = 100
     NUKE_STOCKPILE = 0
@@ -18,6 +19,7 @@ class Country:
         self.health = self.DEFAULT_HEALTH
         self.resources = self.DEFAULT_RESOURCES
         self.nukes = self.NUKE_STOCKPILE
+        self.kills = []
         self.killer = None  # Attack Event dictionary
 
         # Each person's bot is stored here
@@ -28,20 +30,37 @@ class Country:
         """ Get the action from the player bot
         """
 
+        action = None
         country_status = self.serialize()
 
         try:
-            action = self.player.action(country_status, mydeepcopy(world_state))
+            attack = self.player.action(country_status, mydeepcopy(world_state))
+
+            if attack:
+                attack["Source"] = self.id
+                attack = self._do_action(attack)
+
+                action = {
+                    "Attack": attack
+                }
+
+                assert is_valid_action(action, world_state["alive_players"])
+
+            else:
+                action = {}
+
         except Exception:
             if self.verbose:
                 print("Caught exception for", self.name)
                 print(traceback.format_exc())
-            action = {}
 
-        action["Source"] = self.id
-        action = self._do_action(action)
+                if action:
+                    print("Attempted action:", action)
 
-        return action
+            return {}
+
+        else:
+            return action
 
     def _do_action(self, action: Dict):
         if "Weapon" in action:
@@ -61,6 +80,7 @@ class Country:
             "Filename": self.filename,
             "Health": self.health,
             "ID": self.id,
+            "Kills": self.kills,
             "Name": self.name,
             "Resources": self.resources,
             "Nukes": self.nukes

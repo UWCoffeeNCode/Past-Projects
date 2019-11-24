@@ -1,27 +1,35 @@
 from resources.weapons import Weapons
-from resources.helpers import get_distance
+from resources.helpers import mydeepcopy
+import os
+import random
 
 
 class Bot:
     """
-    Find the nearest bot that won't soon be killed.
+    Attack the healthiest bot in the future
     Use the nuke as soon as possible (so people don't try to steal it)
     Can also predict the future..
 
     But first priority is to kill smart bot.
     """
+    """
+    def __init__(self):
+        path = os.path.abspath(__file__)
+        bots = os.path.dirname(path)
+
+        name = f"kevin{random.randint(0, 100)}.py"
+        new_name = os.path.join(bots, name)
+
+        os.rename(path, new_name
+    """
 
     def action(self, country_status: dict, world_state: dict):
         # Fire at...
-        status = self.smart_bot_is_alive(world_state)  # It's really annoying
-        if status["Alive"]:
-            target = status["ID"]
-
-        else:
-            target = self.pick_target(country_status["ID"], world_state)
+        has_nukes = self.has_nukes(country_status)
+        target = self.pick_target(has_nukes, country_status["ID"], world_state)
 
         # Select a weapon
-        if self.has_nukes(country_status):
+        if has_nukes:
             weapon = Weapons.NUKE
         else:
             weapon = Weapons.MISSILE
@@ -32,21 +40,33 @@ class Bot:
         }
 
     @staticmethod
-    def get_distances(own_id: int, world_state: dict):
+    def get_healths(has_nukes: bool, own_id: int, world_state: dict):
         """
         Return a dictionary mapping country ids to their distance.
         """
 
-        options = Bot.simulate(own_id, world_state)
+        future_state = Bot.simulate(own_id, mydeepcopy(world_state))
 
-        distances = {}
-        for i in options:
-            distances[i] = get_distance(world_state["countries"], own_id, i)
+        healths = {}
 
-        return distances
+        for i in future_state["future_alive"]:
+            c = world_state["countries"][i]
+            if c["ID"] == own_id:
+                continue
+
+            elif c["Filename"] == "ping_bot":
+                if has_nukes and not c["Nukes"]:
+                    healths[c["ID"]] = 10000  # Massive priority
+                    break
+                elif len(future_state["future_alive"]) > 2:
+                    continue
+
+            healths[c["ID"]] = c["Health"]
+
+        return healths
 
     @staticmethod
-    def pick_target(own_id: int, world_state: dict):
+    def pick_target(has_nukes: bool, own_id: int, world_state: dict):
         """
         Return a country ID
         """
@@ -56,11 +76,11 @@ class Bot:
             return None
 
         # Find the nearest bot and return its id as i
-        distances = Bot.get_distances(own_id, world_state)
-        min_dist = min(distances.values())
+        healths = Bot.get_healths(has_nukes, own_id, world_state)
+        max_health = max(healths.values())
 
-        for i, dist in distances.items():
-            if dist == min_dist:
+        for i, health in healths.items():
+            if health == max_health:
                 break
 
         return i
@@ -82,26 +102,12 @@ class Bot:
 
             world_state["countries"][target]["Health"] -= damage
 
-        # List comprehension to find alive players in future
-        new_alive = [i["ID"] for i in world_state["countries"] if world_state["countries"][i["ID"]]["Health"]]
+        new_alive = set()
+        for c in world_state["countries"]:
+            if c["Health"]:
+                new_alive.add(c["ID"])
 
-        # Remove self from the list if possible
-        if own_id in new_alive:
-            new_alive.remove(own_id)
+        world_state["future_alive"] = new_alive
 
         # Return alive player ids in the future
-        return new_alive
-
-    @staticmethod
-    def smart_bot_is_alive(world_state):
-        # Set c to that of smart bot
-        for c in world_state["countries"]:
-            if c["Filename"] == "smart_bot":
-                break
-
-        result = {}
-        result["Alive"] = c["Health"] > 80  # Worth killing
-        if result["Alive"]:
-            result["ID"] = c["ID"]
-
-        return result
+        return world_state

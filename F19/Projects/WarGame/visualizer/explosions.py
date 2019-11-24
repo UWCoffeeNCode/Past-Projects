@@ -54,5 +54,4 @@ class Explosions:
                 self.explosions.remove(e)
 
 
-
 explosionImages = load_explosions()

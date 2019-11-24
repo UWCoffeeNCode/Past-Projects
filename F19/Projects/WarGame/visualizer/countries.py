@@ -8,7 +8,9 @@ TAU = math.pi * 2
 
 
 class Countries:
-    def __init__(self, game_countries, WIDTH, HEIGHT):
+    def __init__(self, game_countries, SIZE):
+        WIDTH, HEIGHT = SIZE
+
         self.countries = []
         country_count = len(game_countries)
 
@@ -28,3 +30,15 @@ class Countries:
 
     def get_pos(self, i):
         return self.countries[i].border.center
+
+    def resize(self, WIDTH, HEIGHT):
+        country_count = len(self.countries)
+
+        for i, c in enumerate(self.countries):
+            perc = (math.sin(i * TAU / country_count) / 2 + 1/2)
+            x = (0.1 + 0.8 * perc) * WIDTH
+
+            perc = (math.cos(i * TAU / country_count) / 2 + 1/2)
+            y = (0.15 + 0.75 * perc) * HEIGHT
+
+            c.set_pos((x, y))

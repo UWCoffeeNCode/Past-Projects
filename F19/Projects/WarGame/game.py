@@ -5,6 +5,7 @@ from resources.game_logic import GameLogic
 
 class TextGame:
     __slots__ = ('game',)
+
     def __init__(self):
         self.game = GameLogic()
 

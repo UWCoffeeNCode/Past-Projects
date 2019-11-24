@@ -32,7 +32,7 @@ class GameLogic:
     def is_finished(self):
         if self.turn > self.MAX_TURNS:
             print("Maximum turn count", self.MAX_TURNS, "reached.")
-            print("Turn", self.turn, self.countries)
+            print("Turn", self.turn, self.countries.get_survivor())
             return True
 
         return self.countries.get_alive_count() <= 1 and not self.active_weapons
@@ -57,6 +57,9 @@ class GameLogic:
                 if action["Event"]["Success"]:
                     c = action["Event"]["Target"]
                     self.countries.countries[c].take_damage(action)
+                    self.events.append({
+                        "Hit": action["Event"]
+                    })
 
                 self.active_weapons.remove(action)
 
@@ -75,14 +78,17 @@ class GameLogic:
             if not action:
                 raise Exception(action)
 
-            if ("Weapon" in action
-                and action["Weapon"] in weapons.Weapons
-                and action["Success"]):
-                delay = self.get_delay(action)
-                self.active_weapons.append({
-                    "Delay": ceil(delay),
-                    "Event": action
-                })
+            if "Attack" in action:
+                attack = action["Attack"]
+                if ("Weapon" in attack
+                    and attack["Weapon"] in weapons.Weapons
+                    and attack["Success"]):
+
+                    delay = self.get_delay(attack)
+                    self.active_weapons.append({
+                        "Delay": ceil(delay),
+                        "Event": attack
+                    })
 
     def get_delay(self, action: Dict):
         source, target = action["Source"], action["Target"]
@@ -102,28 +108,26 @@ class GameLogic:
             if "Death" in event:
                 print(name(event["Death"]["Target"]), "died because of",
                       name(event["Death"]["Source"]), "using a",
-                      event["Death"]["Weapon"].name + "!")
+                      f'{event["Death"]["Weapon"].name}!')
                 continue
 
+            elif "Hit" in event:
+                continue
 
-            source = name(event["Source"])
+            elif "Attack" in event:
+                attack = event["Attack"]
+                source = name(attack["Source"])
 
-            if "Target" in event:
-                target = name(event["Target"])
-            else:
-                target = None
-
-            if "Weapon" in event:
-                weapon_name = event["Weapon"].name
-                print(source, "fired a", weapon_name, "at", target)
-
-                if not event["Success"]:
-                    print("But they ran out of", weapon_name + "s.")
-
-            else:
-                if target:
-                    print(source, "decided to wait and stared at", target)
+                if "Target" in attack:
+                    target = name(attack["Target"])
                 else:
-                    print(source, "decided to wait.")
+                    target = None
+
+                if "Weapon" in attack:
+                    weapon_name = attack["Weapon"].name
+                    print(source, "fired a", weapon_name, "at", target)
+
+                    if not attack["Success"]:
+                        print("But they ran out of", f"{weapon_name}s.")
 
         print()

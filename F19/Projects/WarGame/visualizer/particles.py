@@ -14,7 +14,7 @@ class Particle:
         self.rect = pygame.Rect(0, 0, 5, 5)
 
         angle = random.uniform(0, TAU)
-        speed = random.uniform(0.1, 2.5)
+        speed = random.uniform(0.05, 2)
 
         self.dx = cos(angle) * speed
         self.dy = sin(angle) * speed
@@ -31,7 +31,7 @@ class Particle:
         self.y += self.dy
         self.rect.center = self.x, self.y
 
-        pygame.draw.rect(window, self.colour, self.rect)
+        window.fill(self.colour, self.rect)
         self.despawn_count -= 1 / FPS
 
 

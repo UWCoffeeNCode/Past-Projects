@@ -14,22 +14,29 @@ def get_distance(countries: List, country_one: int, country_two: int):
     chord_length = sin(rotation / 2)
     return chord_length
 
+
 def is_valid_action(action: Dict, alive_countries: List):
+    if "Attack" not in action:
+        return False
+
+    attack = action["Attack"]
+
     try:
-        if "Weapon" not in action:
-            return True
+        if "Weapon" not in attack:
+            return False
 
         return all((
-            action["Weapon"] in Weapons,
-            action["Target"] in alive_countries
+            attack["Weapon"] in Weapons,
+            attack["Target"] in alive_countries
         ))
     except KeyError as e:
         print("KeyError", e)
         return False
 
+
 def mydeepcopy(obj):
     # https://stackoverflow.com/a/19065623
     try:
-       return pickle.loads(pickle.dumps(obj, -1))
+        return pickle.loads(pickle.dumps(obj, -1))
     except:
-       return deepcopy(obj)
+        return deepcopy(obj)
