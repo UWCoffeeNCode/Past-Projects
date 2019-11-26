@@ -1,22 +1,42 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
   background-color: #282c34;
   min-height: 100vh;
+  text-align: center;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+.App-title {
+  font-size: 75px;
+  margin: 1rem;
+}
+
+.Subreddit {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  color: black;
+  margin: 0 2rem 2rem 2rem;
+  border-radius: 15px;
+}
+
+.Subreddit-icon {
+  max-height: 10rem;
+  margin-left: 3rem;
+}
+
+.Subreddit-summary {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Subreddit-summary-item {
+  margin: 0.5rem;
 }
