@@ -39,6 +39,7 @@ class PyGame:
     BATCH = False
     FPS = 60
     TURN_LENGTH = 1
+    frame = 0
 
     def __init__(self, window: pygame.Surface):
         self.end_game = None
@@ -68,7 +69,7 @@ class PyGame:
                 if PyGame.quit_game(event):
                     running = False
                     pygame.quit()
-                    return 0
+                    return 1
 
                 elif PyGame.press_f11(event):
                     self.toggle_fullscreen()
@@ -100,7 +101,7 @@ class PyGame:
                     self.end_game = time.time()
 
                     if self.BATCH:
-                        self.end_game += 5
+                        self.end_game += 3
 
             if self.shake.is_active():
                 self.shake.animate(self.window)
@@ -118,8 +119,10 @@ class PyGame:
         else:
             print("There were no survivors.")
 
-        if not self.BATCH:
-            self._finish_game()
+        if self.BATCH:
+            return 0
+        else:
+            return self._finish_game()
 
     def animate_turn(self):
         for event in self.game.events:
@@ -144,6 +147,12 @@ class PyGame:
                 pos = self.countries.get_pos(event["Hit"]["Target"])
                 self.explosions.add(pos, event["Hit"]["Weapon"])
 
+    def screenshot(self):
+        path = os.path.join("screenshots", str(PyGame.frame) + '.png')
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        pygame.image.save(self.window, path)
+        PyGame.frame += 1
+
     def _finish_game(self):
         running = True
         while running:
@@ -151,7 +160,7 @@ class PyGame:
                 if PyGame.quit_game(event):
                     running = False
                     pygame.quit()
-                    return 0
+                    return not PyGame.BATCH
 
                 elif PyGame.press_f11(event):
                     self.toggle_fullscreen()
@@ -181,15 +190,14 @@ if __name__ == "__main__":
     # Set this to True to watch many repeated conflicts
     PyGame.BATCH = True
 
+    # Print error messages if not in batch mode
     Country.verbose = not PyGame.BATCH
-    if PyGame.BATCH:
-        PyGame.TURN_LENGTH = 1
 
-        while True:
-            active_game = PyGame(window)
-            active_game.start()
-        pygame.quit()
-
-    else:
+    while True:
         active_game = PyGame(window)
-        active_game.start()
+        player_quit = active_game.start()
+
+        if player_quit:
+            break
+
+    pygame.quit()

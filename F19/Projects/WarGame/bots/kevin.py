@@ -20,7 +20,7 @@ class Bot:
         name = f"kevin{random.randint(0, 100)}.py"
         new_name = os.path.join(bots, name)
 
-        os.rename(path, new_name
+        os.rename(path, new_name)
     """
 
     def action(self, country_status: dict, world_state: dict):
