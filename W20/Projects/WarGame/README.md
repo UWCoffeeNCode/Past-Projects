@@ -18,13 +18,13 @@ Our goal is to make bots that compete in a halo-inspired global war game using P
 
 Lesson # | Date | Description | Concepts
 --|--|--|--
-1 | TBD | Introduction to the game and SDK | Intermediate data types (dict, set, tuple)
-2 | TBD | Building a bot in class | OOP and API usage
-3 | TBD | Building your bot | Exceptions and variable scope
-4 | TBD | Building your bot continued | Git
-5 | TBD | Final competition! | Advanced libraries
+1 | Feb 6  | Introduction to the game and SDK | Intermediate data types (dict, set, tuple)
+2 | Feb 13 | Building a bot in class | OOP and API usage
+3 | Feb 27 | Building your bot | Exceptions and variable scope
+4 | Mar 5  | Building your bot continued | Git
+5 | Mar 12 | Final competition! | Advanced libraries
 
 ## Lessons
-To be released.
+[Lesson 1](https://docs.google.com/presentation/d/1hMb_UZWHC0SrRTNk4hAMShrTrMN3GhGXODitZLX0Mu0/edit?usp=sharing)
 
 Feel free to check F19/Projects/WarGame readme for extra material.
