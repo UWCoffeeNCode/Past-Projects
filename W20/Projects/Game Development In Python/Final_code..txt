@@ -1,0 +1,188 @@
+import turtle
+import os
+import math
+import random
+
+#Code for setting up a window.
+mywindow = turtle.Screen()
+mywindow.bgcolor("Black")
+mywindow.title("Space Invaders!!")
+mywindow.bgpic("background.gif")
+
+# Registering the shapes first.
+turtle.register_shape("invader.gif")
+turtle.register_shape("player.gif")
+
+
+#Code for drawing the border:
+mypen = turtle.Turtle()
+mypen.speed(0) #Fastest speed for a turtle is 0
+mypen.color("White")
+mypen.penup()
+mypen.setposition(-300,-300)
+mypen.pendown()
+mypen.pensize(3)
+
+# Setting the score
+score = 0
+
+# Drawing the score
+score_pen = turtle.Turtle()
+score_pen.speed(0)
+score_pen.color("white")
+score_pen.penup()
+score_pen.setposition(-290, 280)
+scorestring = "Score: {}".format(score)
+score_pen.write(scorestring, False, align = "left", font = ("Arial", 14, "normal"))
+score_pen.hideturtle()
+
+#Code for drawing a square border:
+for side in range(4):
+    mypen.forward(600)
+    mypen.left(90)
+
+#Creating a player turtle:
+player = turtle.Turtle()
+player.color("Blue")
+player.shape("player.gif")
+player.penup()
+player.speed(0)
+player.setposition(0, -250)
+player.setheading(90)
+playerspeed = 15
+
+number_of_enemies = 5
+enemies = []
+for i in range(number_of_enemies):
+    enemies.append(turtle.Turtle()) # creating a number of enemies and storing them in a list.
+
+for enemy in enemies:
+    enemy.color("red")
+    enemy.shape("invader.gif")
+    enemy.penup()
+    enemy.speed(0)
+    x = random.randint(-200, 200)
+    y = random.randint(100, 250)
+    enemy.setposition(x , y)
+
+enemyspeed = 2
+
+
+#Creating the player's weapon:
+playerbullet = turtle.Turtle()
+playerbullet.color("yellow")
+playerbullet.shape("triangle")
+playerbullet.penup()
+playerbullet.speed(0)
+playerbullet.setheading(90)
+playerbullet.shapesize(0.5,0.5)
+playerbullet.hideturtle() # hiding the bullet until the player hits the space bar
+bulletspeed = 20
+bulletstate = 'ready'
+
+#Code for moving the player:
+def lefttime():
+    x = player.xcor() #Gets the x coordinate of the player.
+    x = x - playerspeed
+    if x < -280: #Checking for boundary.
+        x = -280
+    player.setx(x) # updates the x coordinate location
+
+def righttime():
+    x = player.xcor()
+    x = x + playerspeed
+    if x > 280:
+        x = 280
+    player.setx(x)
+
+def fire_bullet():
+    global bulletstate #Declaring bulletstate as a global in order to change it everywhere in the program
+    if bulletstate == 'ready':
+        bulletstate = 'fire'
+        # Moving the bullet just above the player
+        x = player.xcor()
+        y = player.ycor() + 10
+        playerbullet.setposition(x , y)
+        playerbullet.showturtle()
+
+# Code for checking collision:
+def isCollision(t1, t2):
+    distance = math.sqrt(math.pow(t1.xcor() - t2.xcor(), 2)
+    + math.pow (t1.ycor() - t2.ycor(), 2))
+    if distance < 15:
+        return True #Collision has happened.
+    else:
+        return False
+
+
+#Code for telling turtle to listen to our keyboard actions
+turtle.listen()
+turtle.onkey(lefttime, "Left")
+turtle.onkey(righttime, "Right")
+turtle.onkey(fire_bullet, "space")
+
+# Main loop of the game:
+while True:
+    for enemy in enemies:
+
+       # Moving the enemy.
+        x = enemy.xcor()
+        x = x + enemyspeed
+        enemy.setx(x)
+
+        #Moving the enemy back and forth
+        if enemy.xcor() > 280:
+            # Code to move all the enemies down.
+            for e in enemies:
+                 y = e.ycor()
+                 y = y - 40
+                 e.sety(y)
+           # Changes the direction of the enemies.
+            enemyspeed = enemyspeed * -1
+
+
+        if enemy.xcor() < -280:
+            for e in enemies:
+                y = e.ycor()
+                y = y - 40
+                e.sety(y)
+            enemyspeed = enemyspeed * -1
+
+        # Checking to see if theres a Collision
+        if isCollision(playerbullet, enemy):
+            # reset the bullet
+            playerbullet.hideturtle()
+            bulletstate = 'ready'
+            playerbullet.setposition(0 , -400)
+            # reset the enemy.
+            x = random.randint(-200, 200)
+            y = random.randint(100, 250)
+            enemy.setposition(x , y)
+            #updating the score
+            score = score + 10
+            scorestring = "Score: {}".format(score)
+            score_pen.clear()
+            score_pen.write(scorestring, False, align = "left", font = ("Arial", 14, "normal"))
+
+
+        if isCollision(enemy, player):
+            player.hideturtle()
+            enemy.hideturtle()
+            print("Game Over!!")
+            break
+
+    # Moving the bullet:
+    if bulletstate == 'fire':
+        y = playerbullet.ycor()
+        y = y + bulletspeed
+        playerbullet.sety(y)
+
+    # Checking to see if bullet has reached the top
+    if playerbullet.ycor() > 275:
+        playerbullet.hideturtle()
+        bulletstate = 'ready'
+
+
+
+
+turtle.Screen().exitonclick()
