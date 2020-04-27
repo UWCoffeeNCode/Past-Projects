@@ -1,5 +1,5 @@
 # UW Coffee 'N Code Projects
-This is a colletion of all UW Coffee 'N Code Past Projects. Each project is organized into 5-7 lessons that are taught once a week. If you are interested in creating one of the projects on your own time feel free to follow our lessons! Here is a summary of all the projects.
+This is a collection of all UW Coffee 'N Code Past Projects. Each project is organized into 5-7 lessons that are taught once a week. If you are interested in creating one of the projects on your own time feel free to follow our lessons! Here is a summary of all the projects.
 
 ## Winter 2020 Project List  
 ### Game Development - John Lemon’s Haunted Jaunt
