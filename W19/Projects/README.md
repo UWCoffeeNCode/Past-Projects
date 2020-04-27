@@ -1,4 +1,4 @@
-# Coffee 'N Code Fall 2019 Project List
+# Coffee 'N Code Winter 2019 Project List
 
 ### Game Dev 1
 **Unity 3D Space Shooter:** A fun, old school arcade style scrolling space shooter. We will be making the game from scratch, and learning how to program gameplay elements, import and use art in our game, and make UI all inside of the Unity engine!
