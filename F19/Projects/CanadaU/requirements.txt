@@ -22,7 +22,7 @@ srsly==0.2.0
 thinc==7.1.1
 tqdm==4.36.1
 update-checker==0.16
-urllib3==1.25.6
+urllib3==1.25.8
 wasabi==0.3.0
 websocket-client==0.56.0
 Werkzeug==0.16.0
