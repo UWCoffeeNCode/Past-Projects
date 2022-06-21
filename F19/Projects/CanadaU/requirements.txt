@@ -10,7 +10,7 @@ itsdangerous==1.1.0
 Jinja2==2.10.3
 MarkupSafe==1.1.1
 murmurhash==1.0.2
-numpy==1.17.3
+numpy==1.22.0
 plac==0.9.6
 praw==6.4.0
 prawcore==1.0.1
